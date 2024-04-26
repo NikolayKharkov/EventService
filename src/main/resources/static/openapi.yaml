@@ -140,7 +140,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор местоположения
         in: path
-        name: id
+        name: locationId
         required: true
         schema:
           example: 42
@@ -203,7 +203,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор местоположения
         in: path
-        name: id
+        name: locationId
         required: true
         schema:
           example: 42
@@ -278,7 +278,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор местоположения
         in: path
-        name: id
+        name: locationId
         required: true
         schema:
           example: 42
@@ -407,7 +407,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор пользователя
         in: path
-        name: id
+        name: userId
         required: true
         schema:
           format: int64
@@ -609,7 +609,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор мероприятия
         in: path
-        name: id
+        name: eventId
         required: true
         schema:
           example: 10
@@ -677,7 +677,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор мероприятия
         in: path
-        name: id
+        name: eventId
         required: true
         schema:
           example: 10
@@ -753,7 +753,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор мероприятия
         in: path
-        name: id
+        name: eventId
         required: true
         schema:
           example: 10
@@ -953,7 +953,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор мероприятия
         in: path
-        name: id
+        name: eventId
         required: true
         schema:
           example: 10
@@ -1023,7 +1023,7 @@ paths:
       parameters:
       - description: Уникальный идентификатор мероприятия
         in: path
-        name: id
+        name: eventId
         required: true
         schema:
           example: 10
@@ -1139,7 +1139,7 @@ components:
     locationId:
       description: Уникальный идентификатор местоположения
       in: path
-      name: id
+      name: locationId
       required: true
       schema:
         example: 42
@@ -1148,7 +1148,7 @@ components:
     userId:
       description: Уникальный идентификатор пользователя
       in: path
-      name: id
+      name: userId
       required: true
       schema:
         format: int64
@@ -1156,7 +1156,7 @@ components:
     eventId:
       description: Уникальный идентификатор мероприятия
       in: path
-      name: id
+      name: eventId
       required: true
       schema:
         example: 10

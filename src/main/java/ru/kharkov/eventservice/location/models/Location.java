@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.models;
+package ru.kharkov.eventservice.location.models;
 
 import lombok.*;
 
@@ -9,6 +9,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Builder
+@ToString
 public class Location {
 
     private Long id;
@@ -35,4 +36,6 @@ public class Location {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
+
 }

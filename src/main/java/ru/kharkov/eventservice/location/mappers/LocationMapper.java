@@ -1,10 +1,10 @@
-package ru.kharkov.eventservice.utils.mappers;
+package ru.kharkov.eventservice.location.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import ru.kharkov.eventservice.dto.LocationDto;
-import ru.kharkov.eventservice.entities.LocationEntity;
-import ru.kharkov.eventservice.models.Location;
+import ru.kharkov.eventservice.location.dto.LocationDto;
+import ru.kharkov.eventservice.location.entities.LocationEntity;
+import ru.kharkov.eventservice.location.models.Location;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,18 +19,18 @@ public class LocationMapper {
         this.modelMapper = new ModelMapper();
     }
 
-    public Location toModel(LocationEntity locationEntity) {
+    public Location toDomain(LocationEntity locationEntity) {
         return Objects.isNull(locationEntity) ? null : this.modelMapper.map(locationEntity, Location.class);
     }
 
-    public Location toModel(LocationDto location) {
+    public Location toDomain(LocationDto location) {
         return Objects.isNull(location) ? null : this.modelMapper.map(location, Location.class);
     }
 
-    public List<Location> toModels(List<LocationEntity> locationEntityList) {
+    public List<Location> toDomains(List<LocationEntity> locationEntityList) {
         return locationEntityList
                 .stream()
-                .map(this::toModel)
+                .map(this::toDomain)
                 .collect(Collectors.toList());
     }
 
@@ -50,5 +50,4 @@ public class LocationMapper {
     public LocationEntity toEntity(Location location) {
         return Objects.isNull(location) ? null : this.modelMapper.map(location, LocationEntity.class);
     }
-
 }

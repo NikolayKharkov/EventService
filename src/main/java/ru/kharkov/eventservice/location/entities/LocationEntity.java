@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.entities;
+package ru.kharkov.eventservice.location.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +10,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Builder
+@ToString
 @Entity
 @Table(name = "locations")
 public class LocationEntity {

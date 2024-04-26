@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.dto;
+package ru.kharkov.eventservice.location.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
