@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.filter;
+package ru.kharkov.eventservice.security;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

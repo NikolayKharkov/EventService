@@ -22,10 +22,10 @@ public class UserService {
     private static final Logger logger = LogManager.getLogger(UserService.class);
 
 
-    public User createUser(User createUser) {
+    public User createUserOrThrow(User createUser) {
         createUser.setRole(Role.USER);
         createUser.setId(null);
-        logger.debug("Вызов метода создании пользователя.");
+        logger.info("Вызов метода создании пользователя.");
         if (this.userExistByLogin(createUser.getLogin())) {
             logger.error(String.format("Пользователь не создан. Логин: \"%s\" уже занят.", createUser.getLogin()));
             throw new IllegalArgumentException(String.format("Пользователь с логином: \"%s\" уже существует.", createUser.getLogin()));
@@ -38,7 +38,7 @@ public class UserService {
         return createUser;
     }
 
-    public User getUserById(long userId) {
+    public User getUserByIdOrThrow(long userId) {
         Optional<UserEntity> byId = this.userRepository.findById(userId);
         UserEntity userEntity = byId
                 .orElseThrow(() -> new NoSuchElementException(String.format("Пользователя с id:%s не существует.", userId)));
@@ -49,7 +49,7 @@ public class UserService {
         return this.userRepository.existsByLogin(userLogin);
     }
 
-    public User getUserByLogin(String userLogin) {
+    public User getUserByLoginOrThrow(String userLogin) {
         Optional<UserEntity> byId = this.userRepository.findByLogin(userLogin);
         UserEntity userEntity = byId
                 .orElseThrow(() -> new NoSuchElementException(String.format("Пользователя с логином:%s не существует.", userLogin)));

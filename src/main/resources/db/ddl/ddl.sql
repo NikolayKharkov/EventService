@@ -13,5 +13,6 @@ create table users (
    login varchar NOT NULL,
    password varchar NOT NULL,
    role varchar NOT NULL,
+   age int NOT NULL,
    UNIQUE(login)
 );

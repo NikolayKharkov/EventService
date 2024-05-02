@@ -28,6 +28,9 @@ public class UserEntity {
     @Column(name = "role")
     private Role role;
 
+    @Column(name = "age")
+    private int age;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

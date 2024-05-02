@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.config;
+package ru.kharkov.eventservice.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.kharkov.eventservice.filter.JwtFilter;
 import ru.kharkov.eventservice.utils.CustomAuthenticationEntryPoint;
 
 @Configuration
@@ -25,6 +24,23 @@ public class SecurityConfig {
     @Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
+    private static final String[] PERMITS_URLS = {"/css/**",
+            "/js/**",
+            "/img/**",
+            "/lib/**",
+            "/favicon.ico",
+            "/swagger-ui/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/swagger-config",
+            "/openapi.yaml",
+            "/swagger-ui/openapi.yaml"};
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -33,6 +49,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PERMITS_URLS).permitAll()
                         .requestMatchers("/users/auth", "/users").permitAll()
                         .anyRequest().authenticated()
                 )

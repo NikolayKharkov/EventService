@@ -22,11 +22,11 @@ public class AuthService {
     public User sighUp(User user) {
         String encryptPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptPassword);
-        return this.userService.createUser(user);
+        return this.userService.createUserOrThrow(user);
     }
 
     public JWTResponse logIn(LogInRequest logInRequest) {
-        User user = this.userService.getUserByLogin(logInRequest.getLogin());
+        User user = this.userService.getUserByLoginOrThrow(logInRequest.getLogin());
         return this.jwtService.generateToken(logInRequest, user);
     }
 }

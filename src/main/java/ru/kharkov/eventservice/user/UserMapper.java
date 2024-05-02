@@ -3,7 +3,7 @@ package ru.kharkov.eventservice.user;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kharkov.eventservice.user.dto.UserDto;
+import ru.kharkov.eventservice.user.dto.UserSignUpRequest;
 import ru.kharkov.eventservice.user.dto.UserInfoDto;
 
 import java.util.Objects;
@@ -14,7 +14,7 @@ public class UserMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    public User toDomain (UserDto user) {
+    public User toDomain (UserSignUpRequest user) {
         return Objects.isNull(user) ? null : this.modelMapper.map(user, User.class);
     }
 
@@ -22,16 +22,16 @@ public class UserMapper {
         return Objects.isNull(user) ? null : this.modelMapper.map(user, User.class);
     }
 
-    public UserDto toDto (User user) {
-        return Objects.isNull(user) ? null : this.modelMapper.map(user, UserDto.class);
+    public UserSignUpRequest toDto (User user) {
+        return Objects.isNull(user) ? null : this.modelMapper.map(user, UserSignUpRequest.class);
     }
 
     public UserInfoDto toUserInfoDto(User user) {
         return Objects.isNull(user) ? null : this.modelMapper.map(user, UserInfoDto.class);
     }
 
-    public UserDto toDto (UserEntity user) {
-        return Objects.isNull(user) ? null : this.modelMapper.map(user, UserDto.class);
+    public UserSignUpRequest toDto (UserEntity user) {
+        return Objects.isNull(user) ? null : this.modelMapper.map(user, UserSignUpRequest.class);
     }
 
     public UserEntity toEntity (User user) {

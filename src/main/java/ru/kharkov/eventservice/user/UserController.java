@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.kharkov.eventservice.user.dto.JWTResponse;
 import ru.kharkov.eventservice.user.dto.LogInRequest;
-import ru.kharkov.eventservice.user.dto.UserDto;
+import ru.kharkov.eventservice.user.dto.UserSignUpRequest;
 import ru.kharkov.eventservice.user.dto.UserInfoDto;
 
 @RestController
@@ -25,8 +25,8 @@ public class UserController {
     private UserMapper userMapper;
 
     @PostMapping
-    public ResponseEntity<UserDto> signUp(@Valid @RequestBody UserDto userDto) {
-        User userCreated = this.userMapper.toDomain(userDto);
+    public ResponseEntity<UserSignUpRequest> signUp(@Valid @RequestBody UserSignUpRequest userSignUpRequest) {
+        User userCreated = this.userMapper.toDomain(userSignUpRequest);
         User result = this.authService.sighUp(userCreated);
         return new ResponseEntity<>(this.userMapper.toDto(result), HttpStatus.CREATED);
     }
@@ -34,7 +34,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{id}")
     public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable("id") Long userId) {
-        User user = this.userService.getUserById(userId);
+        User user = this.userService.getUserByIdOrThrow(userId);
         UserInfoDto result = this.userMapper.toUserInfoDto(user);
         return new ResponseEntity<>(result, HttpStatus.FOUND);
     }

@@ -10,7 +10,7 @@ import ru.kharkov.eventservice.user.UserEntity;
 import ru.kharkov.eventservice.user.UserRepository;
 
 @Component
-public class DefaultEntities implements ApplicationListener<ContextStartedEvent> {
+public class DefaultUsersCreator implements ApplicationListener<ContextStartedEvent> {
 
 
     @Autowired
@@ -22,12 +22,12 @@ public class DefaultEntities implements ApplicationListener<ContextStartedEvent>
 
     @Override
     public void onApplicationEvent(ContextStartedEvent event) {
-        createDefaultUser("admin", "1234", Role.ADMIN);
-        createDefaultUser("user_1", "1234", Role.USER);
+        createDefaultUser("admin", "1234", Role.ADMIN, 18);
+        createDefaultUser("user_1", "1234", Role.USER, 18);
     }
 
 
-    private void createDefaultUser(String login, String password, Role role) {
+    private void createDefaultUser(String login, String password, Role role, int age) {
         if (!this.userRepository.existsByLogin(login)) {
             String encryptedPassword = this.encoder.encode(password);
             UserEntity userEntity = UserEntity
@@ -35,6 +35,7 @@ public class DefaultEntities implements ApplicationListener<ContextStartedEvent>
                     .password(encryptedPassword)
                     .login(login)
                     .role(role)
+                    .age(age)
                     .build();
             this.userRepository.save(userEntity);
         }

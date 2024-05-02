@@ -19,6 +19,8 @@ public class User {
 
     private Role role;
 
+    private int age;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
