@@ -1,19 +1,16 @@
-package ru.kharkov.eventservice.location.controllers;
+package ru.kharkov.eventservice.location;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.kharkov.eventservice.location.dto.LocationDto;
-import ru.kharkov.eventservice.location.models.Location;
-import ru.kharkov.eventservice.location.services.LocationService;
-import ru.kharkov.eventservice.location.mappers.LocationMapper;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/locations")
+@RequestMapping("locations")
 public class LocationController {
 
     @Autowired
@@ -22,12 +19,14 @@ public class LocationController {
     @Autowired
     private LocationMapper locationMapper;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<List<LocationDto>> getAllLocations() {
         List<LocationDto> result = locationMapper.toDtos(locationService.getAllLocations());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<LocationDto> createLocation(@Valid @RequestBody LocationDto locationDto) {
         Location saved = this.locationMapper.toDomain(locationDto);
@@ -36,21 +35,24 @@ public class LocationController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("{id}")
     public ResponseEntity<LocationDto> deleteLocation(@PathVariable("id") long locationId) {
         Location deletedLocation = this.locationService.deleteLocation(locationId);
         LocationDto result = this.locationMapper.toDto(deletedLocation);
         return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @GetMapping("{id}")
     public ResponseEntity<LocationDto> getLocationById(@PathVariable("id") long locationId) {
         Location locationById = this.locationService.getLocationById(locationId);
         LocationDto result = this.locationMapper.toDto(locationById);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable("id") long locationId,
                                                       @Valid @RequestBody LocationDto locationDto) {
         Location updatedLocation = this.locationMapper.toDomain(locationDto);

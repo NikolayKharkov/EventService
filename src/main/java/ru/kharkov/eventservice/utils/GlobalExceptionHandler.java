@@ -8,12 +8,13 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger LOG = LogManager.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler({MethodArgumentNotValidException.class, IllegalArgumentException.class})
     public ResponseEntity<ErrorResponse> handle(Exception e) {
@@ -21,7 +22,7 @@ public class GlobalExceptionHandler {
                 e instanceof MethodArgumentNotValidException ?
                         ((MethodArgumentNotValidException) e).getFieldErrors().get(0).getDefaultMessage() :
                         e.getMessage();
-        LOG.debug(String.format("Ошибка при валидации данных. Ошибка сообщения: %s", errorMessage));
+        logger.debug(String.format("Ошибка при валидации данных. Ошибка сообщения: %s", errorMessage));
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .message("Ошибка валидации входных данных.")
@@ -34,7 +35,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ErrorResponse> handle(NoSuchElementException e) {
         String errorMessage = e.getMessage();
-        LOG.debug(String.format("Ошибка при поиске сущности. Ошибка сообщения: %s", errorMessage));
+        logger.debug(String.format("Ошибка при поиске сущности. Ошибка сообщения: %s", errorMessage));
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .message("Сущность не найдена")
@@ -47,7 +48,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handle(RuntimeException e) {
         String errorMessage = e.getMessage();
-        LOG.debug(String.format("Ошибка сервиса. Ошибка сообщения: %s", errorMessage));
+        logger.debug(String.format("Ошибка сервиса. Ошибка сообщения: %s", errorMessage));
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .message("Внутренняя ошибка сервера.")
@@ -55,5 +56,18 @@ public class GlobalExceptionHandler {
                 .dateTime(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handle(AccessDeniedException e) {
+        String errorMessage = e.getMessage();
+        logger.debug(String.format("Ошибка доступа: %s", errorMessage));
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .message("Ошибка доступа")
+                .detailMessage("Не достаточно прав на выполнени действия.")
+                .dateTime(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 }

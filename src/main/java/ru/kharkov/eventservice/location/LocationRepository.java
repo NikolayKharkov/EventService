@@ -1,11 +1,10 @@
-package ru.kharkov.eventservice.location.repositories;
+package ru.kharkov.eventservice.location;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ru.kharkov.eventservice.location.entities.LocationEntity;
 
 @Repository
 public interface LocationRepository extends JpaRepository<LocationEntity, Long> {
@@ -23,4 +22,5 @@ public interface LocationRepository extends JpaRepository<LocationEntity, Long> 
                     @Param(value = "address") String address,
                     @Param(value = "capacity") int capacity,
                     @Param(value = "description") String description);
+
 }

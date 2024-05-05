@@ -7,3 +7,12 @@ create table locations (
     UNIQUE(name, address, description),
     constraint location_capacity_not_negative check (capacity >= 0)
 );
+
+create table users (
+   id SERIAL PRIMARY KEY,
+   login varchar NOT NULL,
+   password varchar NOT NULL,
+   role varchar NOT NULL,
+   age int NOT NULL,
+   UNIQUE(login)
+);

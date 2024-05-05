@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.location.models;
+package ru.kharkov.eventservice.location;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package ru.kharkov.eventservice.location.entities;
+package ru.kharkov.eventservice.location;
 
 import jakarta.persistence.*;
 import lombok.*;

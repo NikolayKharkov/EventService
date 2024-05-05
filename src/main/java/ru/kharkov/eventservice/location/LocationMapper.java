@@ -1,10 +1,8 @@
-package ru.kharkov.eventservice.location.mappers;
+package ru.kharkov.eventservice.location;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kharkov.eventservice.location.dto.LocationDto;
-import ru.kharkov.eventservice.location.entities.LocationEntity;
-import ru.kharkov.eventservice.location.models.Location;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,11 +11,8 @@ import java.util.stream.Collectors;
 @Component
 public class LocationMapper {
 
-    private final ModelMapper modelMapper;
-
-    public LocationMapper() {
-        this.modelMapper = new ModelMapper();
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     public Location toDomain(LocationEntity locationEntity) {
         return Objects.isNull(locationEntity) ? null : this.modelMapper.map(locationEntity, Location.class);
