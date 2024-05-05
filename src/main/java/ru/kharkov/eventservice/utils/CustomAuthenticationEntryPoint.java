@@ -29,7 +29,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     ) throws IOException {
         logger.error("Authentication error", authException);
         ErrorResponse messageDto = new ErrorResponse(
-                "Ошибка авторизации",
+                "Authentication error",
                 authException.getMessage(),
                 LocalDateTime.now()
         );

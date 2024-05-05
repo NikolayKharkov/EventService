@@ -8,12 +8,13 @@ import lombok.*;
 import java.util.Objects;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
 @Builder
 public class UserSignUpRequest {
 
-    private final Long id;
+    private Long id;
 
     @NotNull(message = "Логин пользователя не должен быть пустым.")
     private String login;
