@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ru.kharkov.eventservice.user.User;
 import ru.kharkov.eventservice.user.dto.JWTResponse;
 import ru.kharkov.eventservice.user.dto.LogInRequest;
-import ru.kharkov.eventservice.user.jwt.JwtProvider;
 
 @Service
 public class JwtService {

@@ -16,12 +16,13 @@ public class JwtAuthentication implements Authentication {
     private boolean authenticated;
     private String userLogin;
     private Set<Role> roles;
+    private String credentials;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return roles; }
 
     @Override
-    public Object getCredentials() { return null; }
+    public Object getCredentials() { return credentials; }
 
     @Override
     public Object getDetails() { return null; }
